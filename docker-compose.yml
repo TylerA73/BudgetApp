@@ -12,6 +12,8 @@ services:
         source: ./budgetapp/public
         target: /usr/app/public
     stdin_open: true
+    depends_on:
+      - springbackend
   mysqlserver:
     build: ./mysqlserver
     environment:

@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository("transactionRepository")
 public interface TransactionRepository extends CrudRepository<Transaction, Long>{
-    @Query(value = "SELECT t.category_id, c.description, SUM(t.transaction_amount) FROM " +
+    @Query(value = "SELECT t.category_id, c.description, ROUND(SUM(t.transaction_amount), 2) FROM " +
                    "transactions t, categories c where t.category_id = c.category_id " +
                    "and t.transaction_date >= :from and t.transaction_date <= :to " +
                    "group by t.category_id", nativeQuery = true)

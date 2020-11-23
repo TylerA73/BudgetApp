@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:12.15.0
 WORKDIR /usr/app
 COPY package.json .
 RUN apt-get update

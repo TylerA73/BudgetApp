@@ -1,3 +1,0 @@
-FROM redis:5.0.6
-EXPOSE 6379
-CMD redis-server
