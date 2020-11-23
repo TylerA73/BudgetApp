@@ -1,0 +1,38 @@
+version: '3.5'
+services:
+  reactfrontend:
+    build: ./budgetapp
+    ports:
+      - "3000:3000"
+    volumes:
+      - type: bind
+        source: ./budgetapp/src
+        target: /usr/app/src
+      - type: bind
+        source: ./budgetapp/public
+        target: /usr/app/public
+    stdin_open: true
+  mysqlserver:
+    build: ./mysqlserver
+    environment:
+      MYSQL_ROOT_PASSWORD: password2020
+      MYSQL_DATABASE: budgetapp
+    ports:
+      - "3306:3306"
+  springbackend:
+    build: ./server
+    environment:
+      MYSQL_DB: mysqlserver
+      MYSQL_USER: dev
+      MYSQL_DATABASE: budgetapp
+      MYSQL_PASSWORD: password2020
+      MYSQL_PORT: 3306
+    ports:
+      - "8080:8080"
+    volumes: 
+      - type: bind
+        source: ./server/budget
+        target: /usr/app/src
+    privileged: true
+    depends_on:
+      - mysqlserver
